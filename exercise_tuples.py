@@ -1,6 +1,3 @@
-# Ejercicios de tuplas: búsqueda del tesoro pirata
-
-
 def get_coordinate(registro):
     """
     Retorna la coordenada del mapa desde una tupla (tesoro, coordenada).
@@ -11,7 +8,7 @@ def get_coordinate(registro):
     Returns:
         Un string con la coordenada del mapa
     """
-    pass  # Reemplazar con tu implementación
+    return registro[1]
 
 
 def convert_coordinate(coordenada):
@@ -24,109 +21,90 @@ def convert_coordinate(coordenada):
     Returns:
         Una tupla con los componentes individuales (ej: ("2", "A"))
     """
-    pass  # Reemplazar con tu implementación
-
+    return (coordenada[0], coordenada[1])
 
 def create_record(registro_azara, registro_rui):
     """
     Combina los registros de Azara y Rui si sus coordenadas coinciden.
-
-    - Registro de Azara: (tesoro, coordenada) -> ej: ('Brass Spyglass', '4B')
-    - Registro de Rui: (ubicacion, coordenada, cuadrante) ->
-      ej: ('Abandoned Lighthouse', ('4', 'B'), 'Blue')
-
-    Si las coordenadas coinciden, retornar una tupla combinada:
-    (tesoro, coordenada_azara, ubicacion, coordenada_rui, cuadrante)
-
-    Si NO coinciden, retornar el string "not a match".
-
-    Args:
-        registro_azara: Tupla (tesoro, coordenada)
-        registro_rui: Tupla (ubicacion, coordenada, cuadrante)
-
-    Returns:
-        Tupla combinada si las coordenadas coinciden, o "not a match" si no.
     """
-    pass  # Reemplazar con tu implementación
+
+    # sacar coordenada de Azara
+    coord_azara = registro_azara[1]
+
+    # convertir "4B" → ("4", "B")
+    coord_azara_convertida = convert_coordinate(coord_azara)
+
+    # sacar coordenada de Rui
+    coord_rui = registro_rui[1]
+
+    # verificar si coinciden
+    if coord_azara_convertida == coord_rui:
+
+        return (
+            registro_azara[0],   # tesoro
+            registro_azara[1],   # coordenada azara
+            registro_rui[0],     # ubicacion
+            registro_rui[1],     # coordenada rui
+            registro_rui[2]      # cuadrante
+        )
+
+    else:
+        return "not a match"
 
 
 def sum_tuple(numeros):
     """
     Recorre una tupla de números y retorna la suma total.
-    Si la tupla está vacía, retorna 0.
-
-    No se permite usar la función built-in sum(). Implementar la suma
-    recorriendo la tupla con un for (o while).
-
-    Args:
-        numeros: Tupla de números (enteros o flotantes)
-
-    Returns:
-        La suma de todos los elementos de la tupla
-
-    Ejemplo:
-        sum_tuple((1, 2, 3, 4, 5)) -> 15
-        sum_tuple(()) -> 0
     """
-    pass  # Reemplazar con tu implementación
 
+    total = 0
+
+    for numero in numeros:
+        total = total + numero
+
+    return total
 
 def count_occurrences(tupla, elemento):
     """
     Recorre la tupla y cuenta cuántas veces aparece el elemento.
-
-    No se permite usar el método .count(). Implementar el conteo
-    recorriendo la tupla con un for (o while).
-
-    Args:
-        tupla: Tupla con elementos de cualquier tipo
-        elemento: El elemento a contar
-
-    Returns:
-        La cantidad de veces que aparece el elemento (int)
-
-    Ejemplo:
-        count_occurrences((1, 2, 2, 3, 2), 2) -> 3
-        count_occurrences(('a', 'b', 'a'), 'c') -> 0
     """
-    pass  # Reemplazar con tu implementación
+
+    contador = 0
+
+    for valor in tupla:
+        if valor == elemento:
+            contador = contador + 1
+
+    return contador
 
 
 def find_index(tupla, elemento):
     """
-    Recorre la tupla y retorna el índice de la PRIMERA aparición del
-    elemento. Si el elemento no se encuentra, retorna -1.
-
-    No se permite usar el método .index(). Implementar la búsqueda
-    recorriendo la tupla con un for (o while).
-
-    Args:
-        tupla: Tupla con elementos
-        elemento: El elemento a buscar
-
-    Returns:
-        El índice (int) de la primera aparición, o -1 si no está
-
-    Ejemplo:
-        find_index(('a', 'b', 'c', 'b'), 'b') -> 1
-        find_index((1, 2, 3), 9) -> -1
+    Retorna el índice de la primera aparición del elemento.
     """
-    pass  # Reemplazar con tu implementación
+
+    indice = 0
+
+    for valor in tupla:
+
+        if valor == elemento:
+            return indice
+
+        indice = indice + 1
+
+    return -1
 
 
 def filter_positives(numeros):
     """
-    Recorre una tupla de números y retorna una nueva tupla con solo
-    los números positivos (> 0). El cero NO se considera positivo.
-
-    Args:
-        numeros: Tupla de números (enteros o flotantes)
-
-    Returns:
-        Tupla con los números positivos, en el orden original
-
-    Ejemplo:
-        filter_positives((-3, 1, 0, 5, -2, 7)) -> (1, 5, 7)
-        filter_positives((-1, -2, -3)) -> ()
+    Retorna una nueva tupla con solo los números positivos.
     """
-    pass  # Reemplazar con tu implementación
+
+    positivos = ()
+
+    for numero in numeros:
+
+        if numero > 0:
+            positivos = positivos + (numero,)
+
+    return positivos

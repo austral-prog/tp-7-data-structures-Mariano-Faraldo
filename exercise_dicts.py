@@ -1,197 +1,243 @@
-# Ejercicios de diccionarios: sistema de inventario
-
-
 def create_inventory(items):
     """
-    Crea un diccionario "inventario" a partir de una lista de items.
-    Cada clave es el nombre de un item y su valor es la cantidad de veces
-    que aparece en la lista.
-
-    Args:
-        items: Lista de items (strings)
-
-    Returns:
-        Un diccionario con cada item y su cantidad
+    Crea un inventario contando cuántas veces aparece cada item.
     """
-    pass  # Reemplazar con tu implementación
+
+    inventario = {}
+
+    for item in items:
+
+        if item not in inventario:
+            inventario[item] = 1
+
+        else:
+            inventario[item] = inventario[item] + 1
+
+    return inventario
 
 
 def add_items(inventario, items):
     """
-    Agrega una lista de items a un inventario existente. Si un item ya está
-    en el inventario, incrementa su cantidad en 1. Si no, lo agrega con
-    cantidad 1.
-
-    Args:
-        inventario: Diccionario con el inventario actual
-        items: Lista de items a agregar
-
-    Returns:
-        El inventario actualizado
+    Agrega items al inventario.
     """
-    pass  # Reemplazar con tu implementación
+
+    for item in items:
+
+        if item in inventario:
+            inventario[item] = inventario[item] + 1
+
+        else:
+            inventario[item] = 1
+
+    return inventario
 
 
 def decrement_items(inventario, items):
     """
-    Resta 1 a la cantidad del inventario por cada vez que un item aparezca
-    en la lista. Las cantidades no pueden ser negativas: si un item se quiere
-    restar más veces que su cantidad disponible, debe quedar en 0 y las
-    solicitudes extra deben ser ignoradas.
-
-    Args:
-        inventario: Diccionario con el inventario actual
-        items: Lista de items a decrementar
-
-    Returns:
-        El inventario actualizado (sin valores negativos)
+    Resta items del inventario sin permitir negativos.
     """
-    pass  # Reemplazar con tu implementación
+
+    for item in items:
+
+        # verificar que exista
+        if item in inventario:
+
+            # verificar stock
+            if inventario[item] > 0:
+
+                inventario[item] = inventario[item] - 1
+
+    return inventario
+
+
+
 
 
 def remove_item(inventario, item):
     """
-    Elimina un item del inventario por completo (clave y cantidad).
-    Si el item no está en el inventario, retornar el inventario sin cambios.
-
-    Args:
-        inventario: Diccionario con el inventario actual
-        item: String con el nombre del item a eliminar
-
-    Returns:
-        El inventario actualizado (o sin cambios si el item no existe)
+    Elimina un item del inventario.
     """
-    pass  # Reemplazar con tu implementación
 
+    if item in inventario:
 
-def list_inventory(inventario):
-    """
-    Retorna una lista de tuplas (item, cantidad) con el contenido del
-    inventario. Solo incluye los items con cantidad mayor a 0.
+        del inventario[item]
 
-    Args:
-        inventario: Diccionario con el inventario
-
-    Returns:
-        Lista de tuplas (item, cantidad) con cantidad > 0
-    """
-    pass  # Reemplazar con tu implementación
+    return inventario
 
 
 def find_max_value(diccionario):
     """
-    Recibe un diccionario de nombres y puntajes, y retorna la clave
-    (nombre) con el valor (puntaje) más alto. Si el diccionario está
-    vacío, retorna "".
-
-    Args:
-        diccionario: Diccionario {nombre: puntaje}
-
-    Returns:
-        String con la clave de mayor valor, o "" si el dict está vacío
-
-    Ejemplo:
-        find_max_value({'John': 85, 'Emma': 92, 'Sophia': 78}) -> 'Emma'
+    Retorna la clave con el valor más alto.
     """
-    pass  # Reemplazar con tu implementación
+
+    # caso vacío
+    if diccionario == {}:
+        return ""
+
+    primer = True
+
+    for nombre in diccionario:
+
+        # primera vuelta
+        if primer == True:
+
+            mejor_nombre = nombre
+            mejor_puntaje = diccionario[nombre]
+
+            primer = False
+
+        # comparar
+        elif diccionario[nombre] > mejor_puntaje:
+
+            mejor_puntaje = diccionario[nombre]
+            mejor_nombre = nombre
+
+    return mejor_nombre
 
 
 def reverse_dict(diccionario):
     """
-    Invierte un diccionario: cada valor pasa a ser clave, y cada clave
-    pasa a ser valor. Si varias claves comparten el mismo valor, sus
-    nombres se concatenan (en el orden en que aparecen).
-
-    Args:
-        diccionario: Diccionario original
-
-    Returns:
-        Nuevo diccionario invertido
-
-    Ejemplo:
-        reverse_dict({'a': 1, 'b': 2, 'c': 3, 'd': 3, 'e': 2})
-        -> {1: 'a', 2: 'be', 3: 'cd'}
+    Invierte claves y valores.
     """
-    pass  # Reemplazar con tu implementación
+
+    invertido = {}
+
+    for clave in diccionario:
+
+        valor = diccionario[clave]
+
+        # si todavía no existe
+        if valor not in invertido:
+
+            invertido[valor] = clave
+
+        # si ya existe
+        else:
+
+            invertido[valor] = invertido[valor] + clave
+
+    return invertido
 
 
 def word_frequency(palabras):
     """
-    Cuenta cuántas veces aparece cada palabra en la lista y lo retorna
-    como un diccionario {palabra: cantidad}.
-
-    Args:
-        palabras: Lista de palabras (strings). También debe soportar
-                  un string vacío retornando un diccionario vacío.
-
-    Returns:
-        Diccionario con la frecuencia de cada palabra
-
-    Ejemplo:
-        word_frequency(["apple", "banana", "apple", "orange", "banana", "apple"])
-        -> {'apple': 3, 'banana': 2, 'orange': 1}
+    Cuenta cuántas veces aparece cada palabra.
     """
-    pass  # Reemplazar con tu implementación
+
+    frecuencia = {}
+
+    for palabra in palabras:
+
+        if palabra not in frecuencia:
+
+            frecuencia[palabra] = 1
+
+        else:
+
+            frecuencia[palabra] = frecuencia[palabra] + 1
+
+    return frecuencia
 
 
 def find_biggest_expense(gastos):
     """
-    Recibe un diccionario donde cada clave es una categoría y el valor
-    una lista de gastos (números). Retorna la categoría con el
-    promedio más alto. Si el diccionario está vacío, retorna "".
-
-    Args:
-        gastos: Diccionario {categoria: [gasto1, gasto2, ...]}
-
-    Returns:
-        String con la categoría de mayor promedio, o "" si vacío
-
-    Ejemplo:
-        find_biggest_expense({'Food': [60, 80, 100],
-                              'Transport': [10, 1, 2],
-                              'Games': [10, 20, 30]}) -> 'Food'
+    Retorna la categoría con mayor promedio.
     """
-    pass  # Reemplazar con tu implementación
+
+    # caso vacío
+    if gastos == {}:
+        return ""
+
+    primer = True
+
+    # recorrer categorías
+    for categoria in gastos:
+
+        lista = gastos[categoria]
+
+        # sumar gastos
+        total = 0
+
+        for gasto in lista:
+            total = total + gasto
+
+        # calcular promedio
+        promedio = total / len(lista)
+
+        # primera vuelta
+        if primer == True:
+
+            mejor_categoria = categoria
+            mejor_promedio = promedio
+
+            primer = False
+
+        # comparar
+        elif promedio > mejor_promedio:
+
+            mejor_categoria = categoria
+            mejor_promedio = promedio
+
+    return mejor_categoria
 
 
 def sum_expenses(gastos):
     """
-    Recibe un diccionario de categorías con listas de gastos y retorna
-    un nuevo diccionario con la suma total de los gastos por categoría.
-
-    Args:
-        gastos: Diccionario {categoria: [gasto1, gasto2, ...]}
-
-    Returns:
-        Diccionario {categoria: suma_total}
-
-    Ejemplo:
-        sum_expenses({'Food': [60, 80, 100],
-                      'Transport': [10, 1, 2],
-                      'Games': [10, 20, 30]})
-        -> {'Food': 240, 'Transport': 13, 'Games': 60}
+    Retorna la suma total de gastos por categoría.
     """
-    pass  # Reemplazar con tu implementación
+
+    resultado = {}
+
+    # recorrer categorías
+    for categoria in gastos:
+
+        lista = gastos[categoria]
+
+        total = 0
+
+        # sumar gastos
+        for gasto in lista:
+
+            total = total + gasto
+
+        # guardar resultado
+        resultado[categoria] = total
+
+    return resultado
 
 
 def sum_expenses_by_type(gastos):
     """
-    Recibe un diccionario de categorías cuyos valores son listas de
-    tuplas (tipo, monto). Retorna un nuevo diccionario con la suma
-    de montos agrupada por tipo (no por categoría).
-
-    Args:
-        gastos: Diccionario {categoria: [(tipo, monto), ...]}
-
-    Returns:
-        Diccionario {tipo: suma_total_del_tipo}
-
-    Ejemplo:
-        sum_expenses_by_type({
-            'Food': [("A", 60), ("B", 100), ("A", 20)],
-            'Transport': [("A", 10), ("B", 50), ("C", 5)],
-            'Games': [("A", 6), ("B", 24), ("C", 99)]
-        })
-        -> {'A': 96, 'B': 174, 'C': 104}
+    Suma montos agrupados por tipo.
     """
-    pass  # Reemplazar con tu implementación
+
+    resultado = {}
+
+    # recorrer categorias
+    for categoria in gastos:
+
+        lista = gastos[categoria]
+
+        # recorrer tuplas
+        for tupla in lista:
+
+            tipo = tupla[0]
+            monto = tupla[1]
+
+            # si no existe
+            if tipo not in resultado:
+
+                resultado[tipo] = monto
+
+            # si ya existe
+            else:
+
+                resultado[tipo] = resultado[tipo] + monto
+
+    return resultado
+def list_inventory(inventario):
+    return [
+        (item, cantidad)
+        for item, cantidad in inventario.items()
+        if cantidad > 0
+    ]
